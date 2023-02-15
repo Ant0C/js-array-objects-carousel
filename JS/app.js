@@ -25,6 +25,8 @@ const images = [
 
 //console.log(images)
 
+let slideAttiva = 0
+
 //***Inserimento markup nel DOM
 
 const carouselElement = document.querySelector(".carousel")
@@ -54,7 +56,6 @@ for(i=0; i<images.length; i++){
 
 //***Programma per cambio img
 
-let slideAttiva = 0
 const slideElement = document.getElementsByClassName('slide')
 //console.log(slideElement)
 
@@ -62,7 +63,7 @@ const arrowLeft = document.querySelector(".arrow-left");
 const arrowRight = document.querySelector(".arrow-right");
 //console.log(arrowRight)
 
-//Al click sulla freccia cambia l'immagine verso destra
+//Al click sulla freccia cambia l'immagine verso sinistra
 
 arrowLeft.addEventListener('click', function () {
     //console.log(slideAttiva)
@@ -70,21 +71,31 @@ arrowLeft.addEventListener('click', function () {
 	let slideCorrente = slideElement[slideAttiva]
 	slideCorrente.classList.remove("d-block")
 
-	slideAttiva += 1
+	if (slideAttiva > 0) {
+		slideAttiva--
+	} else {
+		slideAttiva = slideElement.length - 1
+	}
 
 	let prossimaSlide = slideElement[slideAttiva]
 	prossimaSlide.classList.add("d-block")
 })
 
-//Al click sulla freccia cambia l'immagine verso sinistra
+//Al click sulla freccia cambia l'immagine verso destra
 
 arrowRight.addEventListener('click', function () {
     //console.log(slideAttiva)
 
+    const lastIndex = slideElement.length - 1
+
 	let slideCorrente = slideElement[slideAttiva]
 	slideCorrente.classList.remove("d-block")
 
-	slideAttiva -= 1
+	if (slideAttiva < lastIndex) {
+		slideAttiva += 1
+	} else {
+		slideAttiva = 0
+	}
 
 	let prossimaSlide = slideElement[slideAttiva]
 	prossimaSlide.classList.add("d-block")
